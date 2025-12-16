@@ -1,6 +1,6 @@
 import Hero from '@/components/sections/home/Hero'
 import Pricing from '@/components/sections/home/Pricing'
-import CallToAction from '@/components/sections/home/CallToAction'
+import CTA from '@/components/sections/home/CTA'
 import Contact from '@/components/sections/home/Contact'
 
 export default function HomePage() {
@@ -13,7 +13,7 @@ export default function HomePage() {
         <Pricing />
       </section>
       <section id="cta">
-        <CallToAction />
+        <CTA />
       </section>
       <section id="contact">
         <Contact />
