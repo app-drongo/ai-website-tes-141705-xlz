@@ -58,7 +58,7 @@ const DEFAULT_CONTACT = {
   formFields: [
     { name: 'name', label: 'Full Name', type: 'text', required: true, placeholder: 'John Doe' },
     { name: 'email', label: 'Email Address', type: 'email', required: true, placeholder: 'john@company.com' },
-    { name: 'company', label: 'Company Name', type: 'text', required: false, placeholder: 'Your Company' },
+    { name: 'company', label: 'Company', type: 'text', required: false, placeholder: 'Your Company' },
     { name: 'phone', label: 'Phone Number', type: 'tel', required: false, placeholder: '+1 (555) 123-4567' },
     { name: 'subject', label: 'Subject', type: 'text', required: true, placeholder: 'How can we help?' },
     { name: 'message', label: 'Message', type: 'textarea', required: true, placeholder: 'Tell us about your automation needs...' }
@@ -143,7 +143,7 @@ export default function Contact(props: ContactProps) {
                     {getIcon(feature.icon)}
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">
+                    <h4 className="font-medium mb-1">
                       <span data-editable={`features[${idx}].title`}>{feature.title}</span>
                     </h4>
                     <p className="text-sm text-muted-foreground">
