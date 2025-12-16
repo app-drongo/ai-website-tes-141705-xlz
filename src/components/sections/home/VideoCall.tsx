@@ -10,48 +10,50 @@ import { useSmartNavigation } from '@/hooks/useSmartNavigation';
 
 const DEFAULT_VIDEO_CALL = {
   title: 'See Our Platform in Action',
-  subtitle: 'Book a personalized demo with our automation experts. Discover how our platform can transform your business workflows in just 30 minutes.',
-  ctaText: 'Schedule Free Demo',
-  ctaHref: '/demo',
-  secondaryCtaText: 'Watch Video Tour',
-  secondaryCtaHref: '/video-tour',
-  videoUrl: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-  videoThumbnail: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+  subtitle: 'Watch a live demonstration of how our automation platform can transform your business operations. Get personalized insights and answers to your questions.',
+  videoThumbnail: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2126&q=80',
+  videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+  primaryCtaText: 'Schedule Demo Call',
+  primaryCtaHref: '/demo',
+  secondaryCtaText: 'Watch Video',
+  secondaryCtaHref: '/video',
   features: [
     {
       icon: 'Users',
-      title: 'Expert Consultation',
-      description: 'Get personalized advice from our automation specialists'
+      title: 'Personalized Demo',
+      description: 'Get a tailored demonstration based on your specific business needs and use cases.'
     },
     {
       icon: 'Clock',
       title: '30-Minute Session',
-      description: 'Quick and focused demo tailored to your needs'
+      description: 'Comprehensive walkthrough of key features and Q&A session with our experts.'
     },
     {
       icon: 'Video',
-      title: 'Live Demonstration',
-      description: 'See real workflows and automation examples'
-    },
-    {
-      icon: 'Calendar',
-      title: 'Flexible Scheduling',
-      description: 'Choose a time that works best for you'
+      title: 'Screen Sharing',
+      description: 'See the platform live with real examples and interactive demonstrations.'
     }
   ],
   benefits: [
-    'Personalized workflow recommendations',
-    'ROI calculator for your specific use case',
-    'Integration planning session',
-    'Q&A with automation experts',
-    'Custom demo environment setup'
+    'Live platform demonstration',
+    'Personalized use case discussion',
+    'Technical Q&A session',
+    'Implementation roadmap',
+    'Pricing consultation',
+    'Free trial setup'
   ],
-  trustBadge: 'No commitment required • 100% free consultation',
-  stats: {
-    avgDemoTime: '30 min',
-    satisfactionRate: '98%',
-    implementationTime: '< 1 week'
-  }
+  testimonial: {
+    quote: 'The demo call was incredibly helpful. The team showed exactly how the platform would work for our specific workflow, and we were up and running within days.',
+    author: 'Sarah Johnson',
+    role: 'Operations Manager',
+    company: 'TechFlow Inc.',
+    avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80'
+  },
+  stats: [
+    { value: '15min', label: 'Average Setup Time' },
+    { value: '98%', label: 'Demo Satisfaction' },
+    { value: '500+', label: 'Demos This Month' }
+  ]
 } as const;
 
 type VideoCallProps = Partial<typeof DEFAULT_VIDEO_CALL>;
@@ -62,7 +64,7 @@ export default function VideoCall(props: VideoCallProps) {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   const handlePrimaryCTA = () => {
-    navigate(config.ctaHref);
+    navigate(config.primaryCtaHref);
   };
 
   const handleSecondaryCTA = () => {
@@ -78,7 +80,11 @@ export default function VideoCall(props: VideoCallProps) {
       Calendar: Calendar,
     };
     const IconComponent = icons[iconName as keyof typeof icons] || Video;
-    return <IconComponent className="h-5 w-5" />;
+    return <IconComponent className="h-6 w-6" />;
+  };
+
+  const getInitials = (name: string) => {
+    return name.split(' ').map(n => n[0]).join('').toUpperCase();
   };
 
   return (
@@ -88,48 +94,44 @@ export default function VideoCall(props: VideoCallProps) {
           {/* Content Column */}
           <div className="space-y-8">
             {/* Header */}
-            <div className="space-y-6">
-              <Badge 
-                variant="secondary" 
-                className="bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 transition-colors"
-              >
-                Free Demo Available
+            <div className="space-y-4">
+              <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
+                <Calendar className="h-3 w-3 mr-1" />
+                Book Your Demo
               </Badge>
               
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold">
                 <span data-editable="title">{config.title}</span>
               </h2>
               
-              <p className="text-xl text-muted-foreground leading-relaxed">
+              <p className="text-lg text-muted-foreground leading-relaxed">
                 <span data-editable="subtitle">{config.subtitle}</span>
               </p>
             </div>
 
-            {/* Features Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {/* Features */}
+            <div className="grid gap-4 sm:grid-cols-3">
               {config.features.map((feature, idx) => (
-                <div key={idx} className="flex items-start gap-3">
-                  <div className="flex-shrink-0 p-2 bg-primary/10 text-primary rounded-lg">
+                <div key={idx} className="text-center p-4 bg-background/50 rounded-lg border border-border/50">
+                  <div className="flex justify-center mb-3 text-primary">
                     {getIcon(feature.icon)}
                   </div>
-                  <div>
-                    <h3 className="font-semibold mb-1">
-                      <span data-editable={`features[${idx}].title`}>{feature.title}</span>
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      <span data-editable={`features[${idx}].description`}>{feature.description}</span>
-                    </p>
-                  </div>
+                  <h3 className="font-semibold mb-2">
+                    <span data-editable={`features[${idx}].title`}>{feature.title}</span>
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    <span data-editable={`features[${idx}].description`}>{feature.description}</span>
+                  </p>
                 </div>
               ))}
             </div>
 
-            {/* Benefits List */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold">What You'll Get:</h3>
-              <div className="grid grid-cols-1 gap-3">
+            {/* Benefits */}
+            <div className="space-y-3">
+              <h3 className="font-semibold text-lg">What you'll get:</h3>
+              <div className="grid gap-2 sm:grid-cols-2">
                 {config.benefits.map((benefit, idx) => (
-                  <div key={idx} className="flex items-center gap-3">
+                  <div key={idx} className="flex items-center gap-2">
                     <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
                     <span className="text-sm text-muted-foreground">
                       <span data-editable={`benefits[${idx}]`}>{benefit}</span>
@@ -145,11 +147,11 @@ export default function VideoCall(props: VideoCallProps) {
                 size="lg"
                 className="bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-200 group"
                 onClick={handlePrimaryCTA}
-                data-editable-href="ctaHref"
-                data-href={config.ctaHref}
+                data-editable-href="primaryCtaHref"
+                data-href={config.primaryCtaHref}
               >
                 <Calendar className="mr-2 h-4 w-4" />
-                <span data-editable="ctaText">{config.ctaText}</span>
+                <span data-editable="primaryCtaText">{config.primaryCtaText}</span>
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
 
@@ -166,107 +168,96 @@ export default function VideoCall(props: VideoCallProps) {
               </Button>
             </div>
 
-            {/* Trust Badge */}
-            <div className="flex items-center gap-2">
-              <CheckCircle className="h-4 w-4 text-primary" />
-              <Badge variant="outline" className="bg-background/50 backdrop-blur-sm">
-                <span data-editable="trustBadge">{config.trustBadge}</span>
-              </Badge>
-            </div>
-
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-6 pt-6 border-t border-border">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary">
-                  <span data-editable="stats.avgDemoTime">{config.stats.avgDemoTime}</span>
+            <div className="flex flex-wrap gap-8 pt-4">
+              {config.stats.map((stat, idx) => (
+                <div key={idx} className="text-center">
+                  <div className="text-2xl font-bold text-primary">
+                    <span data-editable={`stats[${idx}].value`}>{stat.value}</span>
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    <span data-editable={`stats[${idx}].label`}>{stat.label}</span>
+                  </div>
                 </div>
-                <div className="text-xs text-muted-foreground">Average Demo</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary">
-                  <span data-editable="stats.satisfactionRate">{config.stats.satisfactionRate}</span>
-                </div>
-                <div className="text-xs text-muted-foreground">Satisfaction</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-primary">
-                  <span data-editable="stats.implementationTime">{config.stats.implementationTime}</span>
-                </div>
-                <div className="text-xs text-muted-foreground">Setup Time</div>
-              </div>
+              ))}
             </div>
           </div>
 
-          {/* Video Column */}
-          <div className="relative">
-            <Card className="bg-card text-card-foreground border-border shadow-2xl overflow-hidden">
-              <CardContent className="p-0">
-                <div className="relative aspect-video bg-muted">
-                  <Image
-                    src={config.videoThumbnail}
-                    alt="Video call demo preview"
-                    fill
-                    className="object-cover transition-transform duration-300 hover:scale-105"
-                    data-editable-src="videoThumbnail"
-                  />
-                  
-                  {/* Video Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
-                  
-                  {/* Play Button */}
-                  {!isVideoPlaying && (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <Button
-                        size="lg"
-                        className="bg-primary/90 text-primary-foreground hover:bg-primary backdrop-blur-sm shadow-lg rounded-full h-16 w-16 p-0"
-                        onClick={handleSecondaryCTA}
-                        data-editable-href="secondaryCtaHref"
-                        data-href={config.secondaryCtaHref}
-                      >
-                        <Play className="h-6 w-6 ml-1" fill="currentColor" />
-                      </Button>
+          {/* Video/Image Column */}
+          <div className="space-y-6">
+            {/* Video Thumbnail */}
+            <div className="relative overflow-hidden rounded-2xl shadow-2xl bg-card border border-border group">
+              <Image
+                src={config.videoThumbnail}
+                alt="Platform demo video thumbnail"
+                width={600}
+                height={400}
+                className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                data-editable-src="videoThumbnail"
+              />
+              
+              {/* Play Button Overlay */}
+              <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+                <Button
+                  size="lg"
+                  className="bg-primary/90 text-primary-foreground hover:bg-primary backdrop-blur-sm shadow-lg group-hover:scale-110 transition-all duration-200"
+                  onClick={handleSecondaryCTA}
+                  data-editable-href="secondaryCtaHref"
+                  data-href={config.secondaryCtaHref}
+                >
+                  <Play className="mr-2 h-6 w-6 fill-current" />
+                  <span data-editable="secondaryCtaText">{config.secondaryCtaText}</span>
+                </Button>
+              </div>
+              
+              {/* Duration Badge */}
+              <div className="absolute top-4 right-4">
+                <Badge className="bg-black/50 text-white border-0">
+                  <Clock className="h-3 w-3 mr-1" />
+                  5:30
+                </Badge>
+              </div>
+            </div>
+
+            {/* Testimonial */}
+            <Card className="bg-background/80 backdrop-blur-sm border-border/50">
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold">
+                      {config.testimonial.avatar ? (
+                        <Image
+                          src={config.testimonial.avatar}
+                          alt={config.testimonial.author}
+                          width={48}
+                          height={48}
+                          className="w-12 h-12 rounded-full object-cover"
+                          data-editable-src="testimonial.avatar"
+                        />
+                      ) : (
+                        getInitials(config.testimonial.author)
+                      )}
                     </div>
-                  )}
-                  
-                  {/* Demo Badge */}
-                  <div className="absolute top-4 left-4">
-                    <Badge className="bg-primary text-primary-foreground">
-                      <Video className="h-3 w-3 mr-1" />
-                      Live Demo
-                    </Badge>
                   </div>
-                  
-                  {/* Duration Badge */}
-                  <div className="absolute bottom-4 right-4">
-                    <Badge variant="secondary" className="bg-background/80 backdrop-blur-sm">
-                      <Clock className="h-3 w-3 mr-1" />
-                      5:30
-                    </Badge>
+                  <div className="flex-1">
+                    <blockquote className="text-sm leading-relaxed mb-3">
+                      <span data-editable="testimonial.quote">"{config.testimonial.quote}"</span>
+                    </blockquote>
+                    <div className="text-sm">
+                      <div className="font-semibold">
+                        <span data-editable="testimonial.author">{config.testimonial.author}</span>
+                      </div>
+                      <div className="text-muted-foreground">
+                        <span data-editable="testimonial.role">{config.testimonial.role}</span>
+                        {' at '}
+                        <span data-editable="testimonial.company">{config.testimonial.company}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </CardContent>
             </Card>
-            
-            {/* Decorative Elements */}
-            <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/10 rounded-full blur-xl" />
-            <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-accent/10 rounded-full blur-xl" />
           </div>
-        </div>
-        
-        {/* Bottom CTA */}
-        <div className="text-center mt-16">
-          <p className="text-lg text-muted-foreground mb-6">
-            Join thousands of businesses already automating their workflows
-          </p>
-          <Button
-            size="lg"
-            onClick={handlePrimaryCTA}
-            className="bg-accent text-accent-foreground hover:bg-accent/90 transition-all duration-200"
-            data-editable-href="ctaHref"
-            data-href={config.ctaHref}
-          >
-            <span data-editable="ctaText">{config.ctaText}</span>
-          </Button>
         </div>
       </div>
     </section>
