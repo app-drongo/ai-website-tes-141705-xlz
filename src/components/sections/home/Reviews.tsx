@@ -9,66 +9,66 @@ import { useState } from 'react';
 
 const DEFAULT_REVIEWS = {
   title: 'What Our Customers Say',
-  subtitle: 'Don\'t just take our word for it. Here\'s what real customers are saying about our automation platform.',
+  subtitle: 'Join thousands of satisfied customers who have transformed their business operations with our automation platform.',
   reviews: [
     {
       id: 1,
       name: 'Sarah Johnson',
-      title: 'Operations Manager',
+      role: 'Operations Manager',
       company: 'TechFlow Inc.',
       avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80',
       rating: 5,
-      review: 'This automation platform has completely transformed how we handle our daily operations. We\'ve reduced manual tasks by 60% and our team can now focus on strategic initiatives. The setup was incredibly easy and the support team is outstanding.',
+      review: 'This automation platform has completely transformed how we handle our daily operations. We\'ve reduced manual tasks by 60% and our team can now focus on strategic initiatives. The ROI was evident within the first month.',
       featured: true
     },
     {
       id: 2,
       name: 'Michael Chen',
-      title: 'CEO',
-      company: 'StartupLab',
+      role: 'CEO',
+      company: 'StartupXYZ',
       avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
       rating: 5,
-      review: 'As a startup, efficiency is everything. This platform helped us automate our entire customer onboarding process, saving us 20 hours per week. The ROI was immediate and substantial.',
+      review: 'As a startup, efficiency is crucial for our survival. This platform helped us automate our entire customer onboarding process. What used to take hours now happens in minutes. Game-changer!',
       featured: false
     },
     {
       id: 3,
       name: 'Emily Rodriguez',
-      title: 'Marketing Director',
-      company: 'GrowthCorp',
+      role: 'Project Manager',
+      company: 'Global Solutions Ltd.',
       avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
       rating: 5,
-      review: 'The analytics and reporting features are game-changing. We can now track our automation performance in real-time and make data-driven decisions. Our productivity has increased by 45%.',
+      review: 'The customer support is exceptional. They helped us set up complex workflows that perfectly match our business needs. The platform is intuitive and powerful at the same time.',
       featured: true
     },
     {
       id: 4,
       name: 'David Thompson',
-      title: 'IT Manager',
-      company: 'Enterprise Solutions',
+      role: 'IT Director',
+      company: 'Enterprise Corp',
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80',
       rating: 5,
-      review: 'Security was our biggest concern, but this platform exceeded all our expectations. Enterprise-grade security with seamless integration. Our compliance team loves the audit trails.',
+      review: 'Security and reliability were our top concerns. This platform exceeded our expectations with enterprise-grade features and 99.9% uptime. Our compliance team loves the audit trails.',
       featured: false
     },
     {
       id: 5,
       name: 'Lisa Park',
-      title: 'Project Manager',
-      company: 'InnovateCo',
+      role: 'Marketing Director',
+      company: 'Creative Agency',
       avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80',
       rating: 5,
-      review: 'The customer support is phenomenal. They helped us customize workflows that perfectly match our business processes. Implementation was smooth and the training was comprehensive.',
+      review: 'We automated our entire lead nurturing process and saw a 45% increase in conversion rates. The visual workflow builder makes it easy for non-technical team members to create automations.',
       featured: true
     },
     {
       id: 6,
       name: 'James Wilson',
-      title: 'COO',
-      company: 'ScaleUp Ventures',
+      role: 'Operations Lead',
+      company: 'Manufacturing Plus',
       avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80',
       rating: 5,
-      review: 'We\'ve tried several automation tools, but none come close to this platform. The intuitive interface and powerful features make it perfect for both technical and non-technical users.',
+      review: 'Implementation was seamless and the training provided was comprehensive. Our productivity metrics have improved across all departments. Best investment we\'ve made this year.',
       featured: false
     }
   ],
@@ -106,11 +106,13 @@ export default function Reviews(props: ReviewsProps) {
     return Array.from({ length: 5 }, (_, i) => (
       <Star
         key={i}
-        className={`h-4 w-4 ${
-          i < rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'
-        }`}
+        className={`h-4 w-4 ${i < rating ? 'text-yellow-400 fill-current' : 'text-muted-foreground'}`}
       />
     ));
+  };
+  
+  const getInitials = (name: string) => {
+    return name.split(' ').map(n => n[0]).join('').toUpperCase();
   };
 
   return (
@@ -134,13 +136,9 @@ export default function Reviews(props: ReviewsProps) {
               <div className="text-sm text-muted-foreground">Happy Customers</div>
             </div>
             <div className="text-center">
-              <div className="flex items-center justify-center gap-1 mb-1">
-                <span className="text-2xl font-bold text-primary">
-                  <span data-editable="stats.averageRating">{config.stats.averageRating}</span>
-                </span>
-                <div className="flex">
-                  {renderStars(5)}
-                </div>
+              <div className="text-2xl font-bold text-primary flex items-center justify-center gap-1">
+                <span data-editable="stats.averageRating">{config.stats.averageRating}</span>
+                <Star className="h-5 w-5 text-yellow-400 fill-current" />
               </div>
               <div className="text-sm text-muted-foreground">Average Rating</div>
             </div>
@@ -155,7 +153,7 @@ export default function Reviews(props: ReviewsProps) {
           {/* Trust Badges */}
           <div className="flex flex-wrap justify-center gap-4">
             {config.trustBadges.map((badge, idx) => (
-              <Badge key={idx} variant="secondary" className="bg-background text-foreground">
+              <Badge key={idx} variant="secondary" className="bg-background/50 text-foreground">
                 <span data-editable={`trustBadges[${idx}]`}>{badge}</span>
               </Badge>
             ))}
@@ -168,7 +166,7 @@ export default function Reviews(props: ReviewsProps) {
             <Card className="bg-card text-card-foreground border-border shadow-lg">
               <CardContent className="p-8 md:p-12">
                 <div className="text-center">
-                  <Quote className="h-12 w-12 text-primary mx-auto mb-6" />
+                  <Quote className="h-12 w-12 text-primary mx-auto mb-6 opacity-50" />
                   
                   <blockquote className="text-xl md:text-2xl font-medium leading-relaxed mb-8">
                     <span data-editable={`reviews[${featuredReviews[currentIndex]?.id - 1}].review`}>
@@ -176,15 +174,15 @@ export default function Reviews(props: ReviewsProps) {
                     </span>
                   </blockquote>
                   
-                  <div className="flex items-center justify-center gap-4">
+                  <div className="flex items-center justify-center gap-4 mb-6">
                     <Avatar className="h-16 w-16">
                       <AvatarImage 
                         src={featuredReviews[currentIndex]?.avatar} 
                         alt={featuredReviews[currentIndex]?.name}
                         data-editable-src={`reviews[${featuredReviews[currentIndex]?.id - 1}].avatar`}
                       />
-                      <AvatarFallback>
-                        {featuredReviews[currentIndex]?.name.split(' ').map(n => n[0]).join('')}
+                      <AvatarFallback className="bg-primary/10 text-primary text-lg font-semibold">
+                        {getInitials(featuredReviews[currentIndex]?.name || '')}
                       </AvatarFallback>
                     </Avatar>
                     
@@ -195,15 +193,15 @@ export default function Reviews(props: ReviewsProps) {
                         </span>
                       </div>
                       <div className="text-muted-foreground">
-                        <span data-editable={`reviews[${featuredReviews[currentIndex]?.id - 1}].title`}>
-                          {featuredReviews[currentIndex]?.title}
+                        <span data-editable={`reviews[${featuredReviews[currentIndex]?.id - 1}].role`}>
+                          {featuredReviews[currentIndex]?.role}
                         </span>
                         {' at '}
                         <span data-editable={`reviews[${featuredReviews[currentIndex]?.id - 1}].company`}>
                           {featuredReviews[currentIndex]?.company}
                         </span>
                       </div>
-                      <div className="flex mt-2">
+                      <div className="flex gap-1 mt-1">
                         {renderStars(featuredReviews[currentIndex]?.rating || 5)}
                       </div>
                     </div>
@@ -216,8 +214,9 @@ export default function Reviews(props: ReviewsProps) {
             <Button
               variant="outline"
               size="icon"
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-background/80 backdrop-blur-sm"
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-background/80 backdrop-blur-sm"
               onClick={prevReview}
+              disabled={featuredReviews.length <= 1}
             >
               <ArrowLeft className="h-4 w-4" />
             </Button>
@@ -225,24 +224,27 @@ export default function Reviews(props: ReviewsProps) {
             <Button
               variant="outline"
               size="icon"
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-background/80 backdrop-blur-sm"
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-background/80 backdrop-blur-sm"
               onClick={nextReview}
+              disabled={featuredReviews.length <= 1}
             >
               <ArrowRight className="h-4 w-4" />
             </Button>
             
             {/* Dots Indicator */}
-            <div className="flex justify-center gap-2 mt-6">
-              {featuredReviews.map((_, idx) => (
-                <button
-                  key={idx}
-                  className={`w-2 h-2 rounded-full transition-colors ${
-                    idx === currentIndex ? 'bg-primary' : 'bg-muted-foreground/30'
-                  }`}
-                  onClick={() => setCurrentIndex(idx)}
-                />
-              ))}
-            </div>
+            {featuredReviews.length > 1 && (
+              <div className="flex justify-center gap-2 mt-6">
+                {featuredReviews.map((_, idx) => (
+                  <button
+                    key={idx}
+                    className={`w-2 h-2 rounded-full transition-colors ${
+                      idx === currentIndex ? 'bg-primary' : 'bg-muted-foreground/30'
+                    }`}
+                    onClick={() => setCurrentIndex(idx)}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
@@ -258,21 +260,21 @@ export default function Reviews(props: ReviewsProps) {
                       alt={review.name}
                       data-editable-src={`reviews[${idx}].avatar`}
                     />
-                    <AvatarFallback>
-                      {review.name.split(' ').map(n => n[0]).join('')}
+                    <AvatarFallback className="bg-primary/10 text-primary font-semibold">
+                      {getInitials(review.name)}
                     </AvatarFallback>
                   </Avatar>
                   
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <div className="font-semibold">
                       <span data-editable={`reviews[${idx}].name`}>{review.name}</span>
                     </div>
                     <div className="text-sm text-muted-foreground">
-                      <span data-editable={`reviews[${idx}].title`}>{review.title}</span>
+                      <span data-editable={`reviews[${idx}].role`}>{review.role}</span>
                       {' at '}
                       <span data-editable={`reviews[${idx}].company`}>{review.company}</span>
                     </div>
-                    <div className="flex mt-1">
+                    <div className="flex gap-1 mt-1">
                       {renderStars(review.rating)}
                     </div>
                   </div>
@@ -284,6 +286,16 @@ export default function Reviews(props: ReviewsProps) {
               </CardContent>
             </Card>
           ))}
+        </div>
+        
+        {/* Bottom CTA */}
+        <div className="text-center mt-16">
+          <p className="text-lg text-muted-foreground mb-6">
+            Ready to join our satisfied customers?
+          </p>
+          <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
+            Start Your Free Trial
+          </Button>
         </div>
       </div>
     </section>
