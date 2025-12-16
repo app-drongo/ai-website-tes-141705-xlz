@@ -1,4 +1,5 @@
 import Hero from '@/components/sections/home/Hero'
+import VideoCall from '@/components/sections/home/VideoCall'
 import Features from '@/components/sections/home/Features'
 import Pricing from '@/components/sections/home/Pricing'
 import Reviews from '@/components/sections/home/Reviews'
@@ -10,6 +11,9 @@ export default function HomePage() {
     <>
       <section id="hero">
         <Hero />
+      </section>
+      <section id="video-call">
+        <VideoCall />
       </section>
       <section id="features">
         <Features />
